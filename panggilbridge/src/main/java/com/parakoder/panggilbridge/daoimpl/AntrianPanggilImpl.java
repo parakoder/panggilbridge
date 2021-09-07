@@ -1,5 +1,8 @@
 package com.parakoder.panggilbridge.daoimpl;
 
+import java.io.Closeable;
+import java.sql.Connection;
+
 import javax.sql.DataSource;
 
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -20,6 +23,7 @@ public class AntrianPanggilImpl implements AntrianPanggil{
 		// TODO Auto-generated method stub
 		String sql = "UPDATE public.antrian_panggil SET status = "+status+" WHERE pelayanan = "+id;
 		jdbcTemplate.update(sql);
+		
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.parakoder.panggilbridge;
 
+import java.sql.SQLException;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,21 +23,22 @@ public class DBConfig {
     Environment env;
 	
 	@Bean()
-    public DataSource getDataSource() {
+    public DataSource getDataSource() throws SQLException {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getProperty("DB_DRIVER"));
         dataSource.setUrl(env.getProperty("DB_URL"));
         dataSource.setUsername(env.getProperty("DB_USERNAME"));
         dataSource.setPassword(env.getProperty("DB_PASSWORD"));
-         
+        dataSource.getConnection().close();
         return dataSource;
+        
     }
 //	@Bean()
 //    public DetailDAO getDetailDAO() {
 //    	return new DetailDAOimpl(getDataSource2());
 //    }
 	@Bean
-	public AntrianPanggil getAntrianPanggil() {
+	public AntrianPanggil getAntrianPanggil() throws SQLException {
 		return new AntrianPanggilImpl(getDataSource());
 	}
 }
